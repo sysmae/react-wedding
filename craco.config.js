@@ -1,4 +1,5 @@
 const CracoAlias = require('craco-alias')
+const FontPreloadPlugin = require('webpack-font-preload-plugin')
 
 module.exports = {
   plugins: [
@@ -6,9 +7,17 @@ module.exports = {
       plugin: CracoAlias,
       options: {
         source: 'tsconfig',
-        baseUrl: './src',
         tsConfigPath: 'tsconfig.paths.json',
       },
     },
   ],
+  webpack: {
+    plugins: {
+      add: [
+        new FontPreloadPlugin({
+          extensions: ['woff2'],
+        }),
+      ],
+    },
+  },
 }
