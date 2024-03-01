@@ -7,6 +7,8 @@ import 'swiper/css'
 import styles from './imageViewer.module.scss'
 
 import './swiper.css'
+import Dimmed from '../shared/Dimmed'
+import generateImageUrl from '@/utils/generateImageUrl'
 
 const cx = classNames.bind(styles)
 
@@ -21,11 +23,13 @@ function ImageViewer({
   selectedIdx: number
   onClose: () => void
 }) {
-  if (!open) return null
+  if (open === false) {
+    return null
+  }
 
   return (
-    <div className={cx('dimmed')}>
-      <CloseButton onClose={onClose} className={cx('icon-close')} />
+    <Dimmed>
+      <CloseButton className={cx('icon-close')} onClose={onClose} />
       <Swiper
         spaceBetween={20}
         slidesPerView={1}
@@ -35,14 +39,30 @@ function ImageViewer({
         {images.map((src, idx) => {
           return (
             <SwiperSlide key={idx}>
-              <img src={src} alt="이미지 뷰어" />
+              <picture>
+                <source
+                  srcSet={generateImageUrl({
+                    filename: src,
+                    format: 'webp',
+                  })}
+                  type="image/webp"
+                />
+                <img
+                  src={generateImageUrl({
+                    filename: src,
+                    format: 'jpg',
+                  })}
+                  alt="이미지"
+                />
+              </picture>
             </SwiperSlide>
           )
         })}
       </Swiper>
-    </div>
+    </Dimmed>
   )
 }
+
 function CloseButton({
   onClose,
   className,
@@ -64,4 +84,5 @@ function CloseButton({
     </svg>
   )
 }
+
 export default ImageViewer

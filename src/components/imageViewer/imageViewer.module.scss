@@ -1,13 +1,4 @@
-.dimmed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #000;
-  z-index: 9999;
-
-  .icon-close {
+.icon-close {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -16,5 +7,4 @@
     height: 30px;
     cursor: pointer;
     z-index: 2;
-  }
 }
